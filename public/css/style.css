@@ -146,7 +146,7 @@ img {
 
 .gallery-name {
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 1px;
   text-shadow: 2px 2px 5px var(--secondary);
   border: 10px groove var(--light);
   padding-top: 30px;
@@ -161,4 +161,12 @@ img {
   flex-flow: column wrap;
   align-content: flex-start;
   align-items: center;
+}
+
+.blog-content {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-right: 100px;
+  padding-left: 100px;
+  border: 1px solid black;
 }

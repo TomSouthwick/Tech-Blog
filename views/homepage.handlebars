@@ -1,3 +1,27 @@
-{{#each galleries as |gallery|}}
-{{> gallery-details}}
-{{/each}}
+<div class="blog-wrapper">
+
+  {{#each blogs as |blog|}}
+    <a class="blog" href="/blog/{{blog.id}}"> <div>
+        <div class="blog-title">
+          <h4>{{blog.title}}</h4>
+          <div class="blog-meta">created by {{blog.user.username}} at {{format_date blog.created_date}}</div>
+        </div> 
+        <p class="blog-content">{{blog.content}}</p>
+      </div>
+    </a>
+
+  {{/each}}
+</div>
+
+<style>
+  .blog{ border: 2px solid black; margin: 10px; width: 100%; } 
+  .blog-title {padding: 10px; background: brown; color: white; display: flex;
+    justify-content: space-between;} 
+  .blog-wrapper{ display: flex; flex-wrap: wrap;justify-content: center; } 
+  .blog-content { padding: 10px;
+  max-height: 63px;
+    overflow-y: hidden;
+} .blog-meta {
+  align-self: center
+}
+</style>

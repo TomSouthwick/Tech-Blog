@@ -11,26 +11,27 @@ Blog.init(
         model: "user",
         key: "id",
       },
-      id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      starting_date: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
-      ending_date: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
+    },
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    created_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    content: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
+
   {
     sequelize,
     freezeTableName: true,

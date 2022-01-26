@@ -1,0 +1,74 @@
+<script>
+
+  // Example POST method implementation:
+async function postData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+  
+
+
+  const submitNewBlog = (event) => {
+      try {
+        event.preventDefault();
+        const title = document.getElementById("title-text").value
+        const content = document.getElementById("content-text").value
+
+        postData('/api/blogs', { title: title, content })
+        .then((data, err) => {
+            window.location = window.location
+        });
+      }  catch (e) {
+          alert(e)
+      }
+    
+  }
+</script>
+
+<div class="blog-wrapper">  
+    <div>
+        <form onsubmit="submitNewBlog(event, {{blog.id}})">
+            <div><label for="title-text">Blog Title</label><input style="width: 100%" id="title-text" type="text" /></div>
+            <div style="margin-top: 10px;"><label for="content-text">Blog Content</label><input  style="width: 100%; height: 100px" id="content-text" type="textarea" /></div>
+            <input type="submit" />
+        </form>
+    </div>
+  {{#each blogs as |blog|}}
+    <a class="blog" href="/blog/{{blog.id}}"> <div>
+        <div class="blog-title">
+          <h4>{{blog.title}}</h4>
+          <div class="blog-meta">created by {{blog.user.username}} at {{format_date blog.created_date}}</div>
+        </div> 
+        <p class="blog-content">{{blog.content}}</p>
+      </div>
+    </a>
+
+  {{/each}}
+</div>
+
+<style>
+  .blog{ border: 2px solid black; margin: 10px; width: 100%; } 
+  .blog-title {padding: 10px; background: brown; color: white; display: flex;
+    justify-content: space-between;} 
+  .blog-wrapper{ display: flex; flex-wrap: wrap;justify-content: center; } 
+  .blog-content { padding: 10px;
+  max-height: 63px;
+    overflow-y: hidden;
+} .blog-meta {
+  align-self: center
+}
+</style>
