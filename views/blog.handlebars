@@ -27,6 +27,7 @@
     {{#each blog.comments as |comment|}}
       {{comment.user.username}}:
       {{comment.content}}
+      {{comment.created_date}}
       <br />
     {{/each}}
     <form onsubmit="submitComment(event, {{blog.id}})">
