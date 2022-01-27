@@ -1,7 +1,7 @@
 <script>
 
   // Example POST method implementation:
-async function postData(url = '', data = {}) {
+async function putData(url = '', data = {}) {
   // Default options are marked with *
   const response = await fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -22,15 +22,21 @@ async function postData(url = '', data = {}) {
   
 
 
-  const submitComment = (event, blogid) => {
+  const updateBlog = (event, blogid) => {
+
+      console.log("attmept")
       try {
         event.preventDefault();
-        const content = document.getElementById("comment-text").value
+        const content = document.getElementById("blogcontent").value
+        const title = document.getElementById("blogtitle").value
 
-        postData(`/api/comments`, { blog_id: blogid, content })
+        
+        console.log({ content, title })
+
+        putData(`/api/blogs/`, { content, title })
         .then((data, err) => {
           console.log(data)
-          window.location = window.location
+           window.location = `/blog/${data.id}`
         });
       }  catch (e) {
           alert(e)
@@ -38,22 +44,11 @@ async function postData(url = '', data = {}) {
     
   }
 </script>
-<section class="container">
-  <h3 class="gallery-name">{{blog.title}}</h3>
-  <p class="blog-content">{{blog.content}}</p>
-  <h6>Created by: {{blog.user.username}}</h6>
-  <a href="/blog/{{blog.id}}/edit">Edit</a>
-  {{!-- <h4>Closing Hour: {{format_time gallery.ending_date}}</h4> --}}
-  <section class="flex-row justify-start">
-    {{#each blog.comments as |comment|}}
-      {{comment.user.username}}:
-      {{comment.content}}
-      {{comment.createdAt}}
-      <br />
-    {{/each}}
-    <form onsubmit="submitComment(event, {{blog.id}})">
-      <input id="comment-text" type="text" />
-      <input type="submit" />
+<div style="width: 100%">
+    <form onsubmit="updateBlog(event, {{blog.id}})">
+        <label for="title">title</label><input id="blogtitle" type="text">
+        <label for="content">content</label>
+        <textarea id="blogcontent" style="width: 100%" name="" id="" cols="30" rows="10">{{blog.content}}</textarea>
+        <input type="submit" />
     </form>
-  </section>
-</section>
+</div>

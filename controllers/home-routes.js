@@ -76,20 +76,65 @@ router.get("/blog/:id", withAuth, async (req, res) => {
   }
 });
 
-// GET one painting
-// Use the custom middleware before allowing the user to access the painting
-router.get("/painting/:id", withAuth, async (req, res) => {
+router.get("/blog/:id/edit", withAuth, async (req, res) => {
+
   try {
-    const dbPaintingData = await Painting.findByPk(req.params.id);
+    const dbBlogData = await Blog.findByPk(req.params.id, {
+      include: [
+        {
+          model: Comment,
+          attributes: [
+            "id",
+            // "created_date",
+            "createdAt",
+            // "timestamps",
+            "content",
+            // "description",
+            "user_id",
+            "blog_id",
+          ],
+          include: [
+            {
+              model: User,
+              attributes: ["id", "username"],
+            },
+          ],
+        },
+        {
+          model: User,
+          attributes: ["id", "username"],
+        },
+      ],
+    });
 
-    const painting = dbPaintingData.get({ plain: true });
+    const blog = dbBlogData.get({ plain: true });
 
-    res.render("painting", { painting, loggedIn: req.session.loggedIn });
+    if(req.session.user.id !== dbBlogData.user_id) {
+      res.redirect(`/blog/${req.params.id}`)
+    }
+
+
+    blog.comments.forEach((comment) => {
+      comment.createdAt = moment(comment.createdAt).fromNow();
+    });
+    res.render("blog-edit", { blog, loggedIn: req.session.loggedIn });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
+
+router.get("/create", withAuth, async (req, res) => {
+  console.log(req, res)
+  res.render("blog-create", {loggedIn: req.session.loggedIn});
+
+  try {
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 
 router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
@@ -106,7 +151,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
       include: [
         {
           model: Comment,
-          attributes: ["content", "user_id", "created_date"],
+          attributes: ["content", "user_id", "created_at"],
         },
         {
           model: User,
