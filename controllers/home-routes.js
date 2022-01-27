@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const moment = require("moment");
 const { Blog, Comment, User } = require("../models");
 // Import the custom middleware
 const withAuth = require("../utils/auth");
@@ -15,7 +16,7 @@ router.get("/", withAuth, async (req, res) => {
         {
           model: User,
           attributes: ["id", "username"],
-        }
+        },
       ],
     });
 
@@ -42,6 +43,8 @@ router.get("/blog/:id", withAuth, async (req, res) => {
           attributes: [
             "id",
             // "created_date",
+            "createdAt",
+            // "timestamps",
             "content",
             // "description",
             "user_id",
@@ -62,6 +65,10 @@ router.get("/blog/:id", withAuth, async (req, res) => {
     });
 
     const blog = dbBlogData.get({ plain: true });
+
+    blog.comments.forEach((comment) => {
+      comment.createdAt = moment(comment.createdAt).fromNow();
+    });
     res.render("blog", { blog, loggedIn: req.session.loggedIn });
   } catch (err) {
     console.log(err);
@@ -99,21 +106,22 @@ router.get("/dashboard", withAuth, async (req, res) => {
       include: [
         {
           model: Comment,
-          attributes: ["content", "user_id"],
+          attributes: ["content", "user_id", "created_date"],
         },
         {
           model: User,
           attributes: ["id", "username"],
-        }
+        },
       ],
     }).catch(function (err) {
-      res.status(500).json(err)
-    });;
-    console.log(req.session.user.id)
+      res.status(500).json(err);
+    });
+    console.log(req.session.user.id);
 
-    const blogs = dbBlogData.map((blog) => blog.get({ plain: true }))
-                  .filter(blog => blog.user_id === req.session.user.id);
-    
+    const blogs = dbBlogData
+      .map((blog) => blog.get({ plain: true }))
+      .filter((blog) => blog.user_id === req.session.user.id);
+
     res.render("dashboard", {
       blogs,
       loggedIn: req.session.loggedIn,

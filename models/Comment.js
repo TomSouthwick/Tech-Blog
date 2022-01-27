@@ -15,10 +15,10 @@ Comment.init(
     //   type: DataTypes.STRING,
     //   allowNull: false,
     // },
-    created_date: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
+    // created_date: {
+    //   createdAt: Sequelize.DATE,
+    //   allowNull: false,
+    // },
     content: {
       type: DataTypes.STRING,
       allowNull: false,
