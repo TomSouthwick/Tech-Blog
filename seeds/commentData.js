@@ -5,29 +5,32 @@ const commentData = [
     content: "Blossoming Apricot",
     user_id: 1,
     blog_id: 2,
-    created_date: "230621",
+    created_date: 23 / 06 / 21,
+    id: 1,
   },
-  // {
-  //   content: "Sam has COVID19",
-  //   user_id: 1,
-  //   blog_id: 1,
-  //   created_date: "23/06/2024",
-  // },
-  // {
-  //   content: "Blossoming Hello",
-  //   user_id: 1,
-  //   blog_id: 3,
-  //   created_date: "23/06/2024",
-  // },
+  {
+    content: "Sam has COVID19",
+    user_id: 1,
+    blog_id: 1,
+    created_date: 23 / 06 / 21,
+    id: 3,
+  },
+  {
+    content: "Blossoming Hello",
+    user_id: 1,
+    blog_id: 3,
+    created_date: 23 / 06 / 21,
+    id: 2,
+  },
 ];
 
-const seedComment = async () => await Comment.bulkCreate(commentData);
+// const seedComment = async () => await Comment.bulkCreate(commentData);
 
-// const seedComment = async () => {
-//   for (let index = 0; index < commentData.length; index++) {
-//     const comment = commentData[index];
-//     await Comment.create(comment);
-//   }
-// };
+const seedComment = async () => {
+  for (let index = 0; index < commentData.length; index++) {
+    const comment = commentData[index];
+    await Comment.create(comment);
+  }
+};
 
 module.exports = seedComment;

@@ -14,9 +14,9 @@
   return response.json(); // parses JSON response into native JavaScript objects
   } const submitComment = (event, id) => { event.preventDefault(); const txt =
   document.getElementById("comment-text").value postData('/api/comments', {
-  content: txt, blog_id: id }) .then(data => { console.log(data); // JSON data
-  parsed by `data.json()` call window.location = window.location });
-  console.log(txt, id) console.log("helloworld"); }
+  content: txt, blog_id: id, created_date: date }) .then(data => {
+  console.log(data); // JSON data parsed by `data.json()` call window.location =
+  window.location }); console.log(txt, id) console.log("helloworld"); }
 </script>
 <section class="container">
   <h3 class="gallery-name">{{blog.title}}</h3>
@@ -27,7 +27,7 @@
     {{#each blog.comments as |comment|}}
       {{comment.user.username}}:
       {{comment.content}}
-      {{!-- {{comment.created_date}} --}}
+      {{comment.created_date}}
       <br />
     {{/each}}
     <form onsubmit="submitComment(event, {{blog.id}})">
