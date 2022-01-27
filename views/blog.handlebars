@@ -30,7 +30,7 @@ async function postData(url = '', data = {}) {
         postData(`/api/comments`, { blog_id: blogid, content })
         .then((data, err) => {
           console.log(data)
-            //window.location = window.location
+          window.location = window.location
         });
       }  catch (e) {
           alert(e)
