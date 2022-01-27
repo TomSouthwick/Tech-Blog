@@ -164,9 +164,9 @@ img {
 }
 
 .blog-content {
-  padding-top: 30px;
-  padding-bottom: 30px;
-  padding-right: 100px;
-  padding-left: 100px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  /* padding-right: 100px;
+  padding-left: 100px; */
   border: 1px solid black;
 }

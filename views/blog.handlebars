@@ -23,11 +23,11 @@
   <p class="blog-content">{{blog.content}}</p>
   <h6>Created by: {{blog.user.username}}</h6>
   {{!-- <h4>Closing Hour: {{format_time gallery.ending_date}}</h4> --}}
-  <section class="flex-row justify-center">
+  <section class="flex-row justify-start">
     {{#each blog.comments as |comment|}}
       {{comment.user.username}}:
       {{comment.content}}
-      {{comment.created_date}}
+      {{!-- {{comment.created_date}} --}}
       <br />
     {{/each}}
     <form onsubmit="submitComment(event, {{blog.id}})">
