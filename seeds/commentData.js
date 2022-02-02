@@ -2,21 +2,21 @@ const { Comment } = require("../models");
 
 const commentData = [
   {
-    content: "Blossoming Apricot",
+    content: "Sounds Interesting. I'd love to test out the engine",
     user_id: 1,
-    blog_id: 2,
+    blog_id: 1,
     created_date: 23 / 06 / 21,
     id: 1,
   },
   {
-    content: "Sam has COVID19",
+    content: "Wow, I had no idea that there was a more defined version of Javascript",
     user_id: 1,
-    blog_id: 1,
+    blog_id: 2,
     created_date: 23 / 06 / 21,
     id: 3,
   },
   {
-    content: "Blossoming Hello",
+    content: "React-Native all the way!",
     user_id: 1,
     blog_id: 3,
     created_date: 23 / 06 / 21,
